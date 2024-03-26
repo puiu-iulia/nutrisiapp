@@ -1,14 +1,19 @@
 import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+import { Button, View, Text } from 'tamagui';
+import { Wand2 } from '@tamagui/lucide-icons';
 
 export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+    <View >
+      <Text style={styles.title} color={"#232924"}>Tab One</Text>
+      <Button 
+        animation='bouncy'
+        bc={'$galaxies'}
+        color={'#fff'}
+        size={'$4'}
+        textProps={{color: '#fff', size: '$4'}}
+        icon={<Wand2 size={20} color={'#fff'}/>}
+        onPress={() => {}} >Generate</Button>
     </View>
   );
 }
