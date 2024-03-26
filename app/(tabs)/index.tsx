@@ -8,7 +8,7 @@ export default function TabOneScreen() {
       <Text style={styles.title} color={"#232924"}>Tab One</Text>
       <Button 
         animation='bouncy'
-        bc={'$galaxies'}
+        bc={'$nutrisi'}
         color={'#fff'}
         size={'$4'}
         textProps={{color: '#fff', size: '$4'}}

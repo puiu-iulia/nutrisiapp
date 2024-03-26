@@ -1,10 +1,14 @@
-import React from 'react'
-import { Stack } from 'expo-router'
+import React from 'react';
+import { Stack } from 'expo-router';
 
-function Page () {
+function Page() {
   return (
-    <Stack />
-  )
+    <Stack
+      screenOptions={{
+        headerShown: false,
+      }}
+    />
+  );
 }
 
 export default Page;
