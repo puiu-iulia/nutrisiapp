@@ -24049,9 +24049,9 @@
           "val": "hsl(53, 100%, 91.0%)",
           "variable": ""
         },
-        "galaxies": {
+        "nutrisi": {
           "isVar": true,
-          "key": "$galaxies",
+          "key": "$nutrisi",
           "name": "color-193",
           "val": "#4f6c4e",
           "variable": ""
@@ -49345,10 +49345,10 @@
         "placeholderColor": "hsl(54, 100%, 86.6%)",
         "id": "light_yellow_alt2_SwitchThumb"
       },
-      "galactic": {
-        "color": "#fff",
-        "backgroundColor": "#4f6c4e",
-        "id": "galactic"
+      "nutrisi": {
+        "color": "#4f6c4e",
+        "backgroundColor": "#f1eae4",
+        "id": "nutrisi"
       }
     },
     "unset": {},
@@ -50787,9 +50787,9 @@
         "val": "hsl(53, 100%, 91.0%)",
         "variable": ""
       },
-      "$color.galaxies": {
+      "$color.nutrisi": {
         "isVar": true,
-        "key": "$galaxies",
+        "key": "$nutrisi",
         "name": "color-193",
         "val": "#4f6c4e",
         "variable": ""

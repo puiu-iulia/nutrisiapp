@@ -9,9 +9,9 @@ import { themes, tokens } from '@tamagui/themes';
 const headingFont = createInterFont();
 const bodyFont = createInterFont();
 
-const galacticTheme = {
-  color: '#fff',
-  backgroundColor: '#4f6c4e',
+const nutrisiTheme = {
+  color: '#4f6c4e',
+  backgroundColor: '#f1eae4',
 };
 
 const tamaguiConfig = createTamagui({
@@ -19,8 +19,8 @@ const tamaguiConfig = createTamagui({
   shouldAddPrefersColorThemes: true,
   animations,
   shorthands,
-  tokens: { ...tokens, color: { ...tokens.color, galaxies: '#4f6c4e' } },
-  themes: { ...themes, galactic: galacticTheme },
+  tokens: { ...tokens, color: { ...tokens.color, nutrisi: '#4f6c4e' } },
+  themes: { ...themes, nutrisi: nutrisiTheme },
   fonts: {
     heading: headingFont,
     body: bodyFont,
