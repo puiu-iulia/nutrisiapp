@@ -12,7 +12,7 @@ import {
 import ThemedButton from './button';
 
 interface AuthFormProps {
-  onSubmit: () => void;
+  onSubmit: (email: string, password: string) => void;
   type?: 'login' | 'register';
 }
 
@@ -27,6 +27,10 @@ function AuthForm({
     type === 'login'
       ? '/(public)/register'
       : '/(public)/login';
+
+  function onHandleSubmit() {
+    onSubmit(email, password);
+  }
 
   return (
     <KeyboardAvoidingView
@@ -56,7 +60,7 @@ function AuthForm({
         />
         <ThemedButton
           buttonTitle={type.toUpperCase()}
-          onPress={onSubmit}
+          onPress={onHandleSubmit}
         />
         <Link href={link} asChild>
           <Pressable>
