@@ -1,32 +1,72 @@
 import { StyleSheet, Image, Pressable } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'expo-router';
-import { View, Text, Button, Input } from 'tamagui';
-// import Spinner from 'react-native-loading-spinner-overlay';
-// import { useAuth } from '../../provider/AuthProvider';
+import { useDispatch, useSelector } from 'react-redux';
+import { View, Spinner } from 'tamagui';
+import * as SecureStore from 'expo-secure-store';
 import AuthForm from '@/components/authForm';
 import ThemedScreen from '@/components/screen';
+import {
+  loginUser,
+  setAuthData,
+} from '@/store/auth/actions';
 
 const Page = () => {
-  const [loading, setLoading] = useState(false);
-  // const { onLogin } = useAuth();
+  const loading = useSelector(
+    (state: any) => state.auth.loading,
+  );
 
-  const handleLogin = async () => {
-    // try {
-    //     setLoading(true);
-    //     await onLogin!(email, password);
-    // } catch (error: any) {
-    //     alert(error.message);
-    // } finally {
-    //     setLoading(false);
-    // }
-  };
+  const dispatch = useDispatch();
+
+  async function tryLocalSignin() {
+    dispatch(setAuthData({ loading: true }));
+    const token =
+      await SecureStore.getItemAsync('auth_token');
+    if (token) {
+      dispatch(
+        setAuthData({
+          loading: false,
+          token: token,
+          success: true,
+        }),
+      );
+    }
+    dispatch(setAuthData({ loading: false }));
+  }
+
+  useEffect(() => {
+    tryLocalSignin();
+  }, []);
+
+  async function handleLogin(
+    email: string,
+    password: string,
+  ) {
+    //@ts-ignore
+    dispatch(loginUser({ email, password })).then(
+      (action: any) => {
+        if (action.type === 'auth/login/fulfilled') {
+          SecureStore.setItemAsync(
+            'auth_token',
+            action.payload.token,
+          );
+        }
+      },
+    );
+  }
 
   return (
     <ThemedScreen>
       <View f={1} jc="center">
-        {/* <Spinner visible={loading} /> */}
-        <AuthForm onSubmit={handleLogin} type="login" />
+        {loading ? (
+          <Spinner size="large" color={'$nutrisi'} />
+        ) : (
+          <AuthForm
+            onSubmit={(email: string, password: string) => {
+              handleLogin(email, password);
+            }}
+            type="login"
+          />
+        )}
       </View>
     </ThemedScreen>
   );
