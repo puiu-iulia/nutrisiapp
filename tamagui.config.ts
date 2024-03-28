@@ -19,7 +19,10 @@ const tamaguiConfig = createTamagui({
   shouldAddPrefersColorThemes: true,
   animations,
   shorthands,
-  tokens: { ...tokens, color: { ...tokens.color, nutrisi: '#4f6c4e' } },
+  tokens: {
+    ...tokens,
+    color: { ...tokens.color, nutrisi: '#4f6c4e' },
+  },
   themes: { ...themes, nutrisi: nutrisiTheme },
   fonts: {
     heading: headingFont,
