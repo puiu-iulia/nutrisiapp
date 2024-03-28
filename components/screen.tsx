@@ -7,12 +7,7 @@ interface screenProps {
 
 function ThemedScreen({ children }: screenProps) {
   return (
-    <View
-      f={1}
-      theme={'nutrisi'}
-      bc={'$backgroundColor'}
-      p={8}
-    >
+    <View f={1} backgroundColor={'$green1Light'} p={16}>
       {children}
     </View>
   );
