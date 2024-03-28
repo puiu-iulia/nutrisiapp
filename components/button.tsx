@@ -4,20 +4,21 @@ import { View, Text, Button } from 'tamagui';
 interface ThemedButtonProps {
   onPress: () => void;
   buttonTitle: string;
+  icon?: JSX.Element | null;
 }
 
 function ThemedButton({
   onPress,
   buttonTitle,
+  icon,
 }: ThemedButtonProps) {
   return (
     <View>
-      <Button onPress={onPress} bc={'$nutrisi'}>
+      <Button onPress={onPress} bc={'$nutrisi'} icon={icon}>
         <Text
-          fontSize={20}
+          fontSize={18}
           color={'white'}
-          fontWeight={'600'}
-          textTransform="uppercase"
+          fontWeight={'700'}
         >
           {buttonTitle}
         </Text>
