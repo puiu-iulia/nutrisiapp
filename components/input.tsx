@@ -16,9 +16,14 @@ function ThemedInput({
       value={value}
       placeholder={placeholder}
       bc={'white'}
-      borderWidth={0.5}
+      borderWidth={1}
+      borderColor={'$gray6Light'}
+      color={'$gray1Dark'}
       mb={16}
       onChangeText={onChangeText}
+      numberOfLines={2}
+      multiline
+      size={'$4'}
     />
   );
 }
