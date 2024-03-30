@@ -13,8 +13,9 @@ export const recipeApiSlice = createApi({
     baseUrl: API_URL,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
+      console.log(token);
       if (token) {
-        headers.set('Authorization', `Token ${token}`);
+        headers.set('Authorization', `Bearer ${token}`);
       }
       return headers;
     },
@@ -27,6 +28,22 @@ export const recipeApiSlice = createApi({
         method: 'POST',
         body: recipe,
       }),
+    }),
+    getPuplicRecipes: build.query<any, void>({
+      query: () => ({
+        url: 'recipes/public',
+        method: 'GET',
+      }),
+      //   providesTags: (result) =>
+      //     result
+      //       ? [
+      //           ...result.map(({ id }) => ({
+      //             type: 'Recipes' as const,
+      //             id,
+      //           })),
+      //           { type: 'Recipes', id: 'LIST' },
+      //         ]
+      //       : [{ type: 'Recipes', id: 'LIST' }],
     }),
     getRecipes: build.query<Recipe[], void>({
       query: () => ({
@@ -86,4 +103,5 @@ export const {
   // useUpdateRecipeMutation,
   useGetRecipeByIdQuery,
   useGenerateRecipeMutation,
+  useGetPuplicRecipesQuery,
 } = recipeApiSlice;
