@@ -18,7 +18,13 @@ const Page = () => {
   const dispatch = useDispatch();
 
   async function tryLocalSignin() {
-    dispatch(setAuthData({ loading: true }));
+    dispatch(
+      setAuthData({
+        loading: true,
+        token: null,
+        success: false,
+      }),
+    );
     const token =
       await SecureStore.getItemAsync('auth_token');
     if (token) {
@@ -29,8 +35,15 @@ const Page = () => {
           success: true,
         }),
       );
+    } else {
+      dispatch(
+        setAuthData({
+          loading: false,
+          token: null,
+          success: false,
+        }),
+      );
     }
-    dispatch(setAuthData({ loading: false }));
   }
 
   useEffect(() => {
