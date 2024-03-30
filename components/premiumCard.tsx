@@ -6,7 +6,7 @@ function PremiumCard() {
     <View
       p={16}
       br={16}
-      bc={'$orange5Light'}
+      bc={'#f1eae4'}
       fd={'row'}
       jc={'space-between'}
     >

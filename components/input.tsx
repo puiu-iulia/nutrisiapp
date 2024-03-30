@@ -20,9 +20,11 @@ function ThemedInput({
       borderColor={'$gray6Light'}
       color={'$gray1Dark'}
       mb={16}
+      height={'100%'}
       onChangeText={onChangeText}
-      numberOfLines={2}
       multiline
+      textAlignVertical="top"
+      blurOnSubmit
       size={'$4'}
     />
   );

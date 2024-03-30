@@ -24055,6 +24055,13 @@
           "name": "color-193",
           "val": "#4f6c4e",
           "variable": ""
+        },
+        "nutrisiLight": {
+          "isVar": true,
+          "key": "$nutrisiLight",
+          "name": "color-194",
+          "val": "#f0f4f0",
+          "variable": ""
         }
       },
       "radius": {
@@ -50792,6 +50799,13 @@
         "key": "$nutrisi",
         "name": "color-193",
         "val": "#4f6c4e",
+        "variable": ""
+      },
+      "$color.nutrisiLight": {
+        "isVar": true,
+        "key": "$nutrisiLight",
+        "name": "color-194",
+        "val": "#f0f4f0",
         "variable": ""
       },
       "$radius.0": {

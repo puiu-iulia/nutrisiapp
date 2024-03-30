@@ -21,7 +21,11 @@ const tamaguiConfig = createTamagui({
   shorthands,
   tokens: {
     ...tokens,
-    color: { ...tokens.color, nutrisi: '#4f6c4e' },
+    color: {
+      ...tokens.color,
+      nutrisi: '#4f6c4e',
+      nutrisiLight: '#f0f4f0',
+    },
   },
   themes: { ...themes, nutrisi: nutrisiTheme },
   fonts: {
