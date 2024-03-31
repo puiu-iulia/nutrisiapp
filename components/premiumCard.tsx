@@ -6,18 +6,30 @@ function PremiumCard() {
     <View
       p={16}
       br={16}
-      bc={'#f1eae4'}
+      bc={'#c4d4c4'}
+      borderColor={'$nutrisi'}
+      borderWidth={0}
+      elevationAndroid={4}
       fd={'row'}
       jc={'space-between'}
+      shadowColor={'$nutrisi'}
+      shadowRadius={4}
     >
       <View f={5} jc={'center'}>
-        <Text fontSize={14} pb={4} color={'$nutrisi'}>
-          Starting at $9.99/month
+        <Text
+          fontSize={14}
+          pb={4}
+          fontWeight={'bold'}
+          color={'$gray8Dark'}
+        >
+          Premium for $9.99/month
         </Text>
         <Text
-          fontSize={16}
+          fontSize={17}
           fontWeight={'bold'}
-          color={'$nutrisi'}
+          fontFamily={'$nutrisi'}
+          lineHeight={24}
+          color={'$gray5Dark'}
         >
           Unlimited recipes, scan ingredients from images
           and generate weekly mealplans
