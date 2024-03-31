@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Platform,
@@ -21,19 +21,37 @@ import {
 import ThemedScreen from '@/components/screen';
 import ThemedButton from '@/components/button';
 import ThemedInput from '@/components/input';
+import RecipeList from '@/components/recipesList';
 import PremiumCard from '@/components/premiumCard';
 import ThemedImagePicker from '@/components/imagePicker';
-import { useGenerateRecipeMutation } from '@/store/api/recipes';
+import {
+  useGenerateRecipeMutation,
+  useGetPuplicRecipesQuery,
+} from '@/store/api/recipes';
 
 export default function TabOneScreen() {
   const [ingredients, setIngredients] =
     useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [publicRecipes, setPublicRecipes] = useState<any>(
+    [],
+  );
 
   const [generateRecipe, { data, error, isLoading }] =
     useGenerateRecipeMutation();
 
-  console.log(data, error, isLoading);
+  const {
+    data: recipes,
+    error: recipesError,
+    isFetching,
+  } = useGetPuplicRecipesQuery();
+  console.log('recipes', isFetching, recipes, recipesError);
+
+  useEffect(() => {
+    if (recipes && recipes.length > 0 && !isFetching) {
+      setPublicRecipes(recipes);
+    }
+  }, [recipes]);
 
   return (
     <ThemedScreen>
@@ -52,7 +70,7 @@ export default function TabOneScreen() {
           lh={32}
           pb={16}
         >
-          Not sure what to cook tonight?
+          Not sure what to cook?
         </Text>
         <Pressable
           onPress={() => setIsOpen(true)}
@@ -64,22 +82,35 @@ export default function TabOneScreen() {
           <Settings2 size={24} color={'$gray1Dark'} />
         </Pressable>
       </View>
-      <View p={16} br={16} bc={'$yellow2Light'} mb={16}>
-        <Text fontSize={16} color={'$gray1Dark'} mb={8}>
-          Add your ingredients followed by a comma and we'll
-          generate a delicious recipe based on them using
-          AI.
+      <View
+        p={16}
+        br={16}
+        shadowColor={'$gray6Dark'}
+        shadowRadius={4}
+        shadowOpacity={0.2}
+        bc={'white'}
+        mb={16}
+      >
+        <Text
+          fontSize={15}
+          lh={22}
+          color={'$gray1Dark'}
+          mb={8}
+        >
+          Add your ingredients and we'll create a delicious
+          recipe
         </Text>
         <ThemedInput
           value={ingredients}
           placeholder={'Carrots, Chicken, Rice, ...,'}
           onChangeText={setIngredients}
         />
-        <ThemedImagePicker
+        {/* <ThemedImagePicker
           onSubmit={(uri) => console.log(uri)}
-        />
+        /> */}
         <ThemedButton
           buttonTitle={'Generate Recipe'}
+          disabled={!ingredients}
           icon={<Wand2 size={20} color={'white'} />}
           onPress={() => {
             setIsOpen(true);
@@ -91,6 +122,7 @@ export default function TabOneScreen() {
         />
       </View>
       <PremiumCard />
+      <RecipeList recipes={publicRecipes} />
       <Sheet
         forceRemoveScrollEnabled={isOpen}
         open={isOpen}
