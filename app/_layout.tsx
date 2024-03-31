@@ -27,6 +27,7 @@ export default function RootLayout() {
   const [loaded, error] = useFonts({
     Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
     InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
+    RobotoSlabSemiBold: require('./../assets/fonts/RobotoSlab-SemiBold.ttf'),
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
