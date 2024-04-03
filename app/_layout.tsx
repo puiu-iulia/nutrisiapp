@@ -1,8 +1,9 @@
 import tamaguiConfig from '@/tamagui.config';
 import { Slot, useRouter, useSegments } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
-import { UseSelector, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Provider } from 'react-redux';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
@@ -64,7 +65,7 @@ function InitialLayout() {
     const inAuthGroup = segments[0] === '(auth)';
 
     if (token && !inAuthGroup) {
-      router.replace('/(tabs)');
+      router.replace('/(tabs)/home');
     } else if (!token && inAuthGroup) {
       router.replace('/(public)/login');
     }
@@ -82,6 +83,7 @@ function RootLayoutNav() {
         name={colorScheme == 'dark' ? 'dark' : 'light'}
       >
         <Provider store={store}>
+          <StatusBar style="dark" />
           <InitialLayout />
         </Provider>
       </Theme>

@@ -12,11 +12,8 @@ import {
   Sheet,
   TextArea,
 } from 'tamagui';
-import {
-  Wand2,
-  Settings2,
-  Camera,
-} from '@tamagui/lucide-icons';
+import { Wand2, Settings2 } from '@tamagui/lucide-icons';
+import { useRouter } from 'expo-router';
 
 import ThemedScreen from '@/components/screen';
 import ThemedButton from '@/components/button';
@@ -29,7 +26,7 @@ import {
   useGetPuplicRecipesQuery,
 } from '@/store/api/recipes';
 
-export default function TabOneScreen() {
+export default function Generate() {
   const [ingredients, setIngredients] =
     useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -37,6 +34,7 @@ export default function TabOneScreen() {
     [],
   );
 
+  const router = useRouter();
   const [generateRecipe, { data, error, isLoading }] =
     useGenerateRecipeMutation();
 
@@ -45,7 +43,7 @@ export default function TabOneScreen() {
     error: recipesError,
     isFetching,
   } = useGetPuplicRecipesQuery();
-  console.log('recipes', isFetching, recipes, recipesError);
+  //console.log('recipes', isFetching, recipes, recipesError);
 
   useEffect(() => {
     if (recipes && recipes.length > 0 && !isFetching) {
@@ -55,12 +53,7 @@ export default function TabOneScreen() {
 
   return (
     <ThemedScreen>
-      <View
-        fd={'row'}
-        jc={'space-between'}
-        pt={Platform.OS == 'ios' ? 48 : 24}
-        ai={'center'}
-      >
+      <View fd={'row'} jc={'space-between'} ai={'center'}>
         <Text
           fontSize={24}
           color={'$gray1Dark'}
@@ -122,7 +115,6 @@ export default function TabOneScreen() {
         />
       </View>
       <PremiumCard />
-      <RecipeList recipes={publicRecipes} />
       <Sheet
         forceRemoveScrollEnabled={isOpen}
         open={isOpen}
@@ -163,20 +155,3 @@ export default function TabOneScreen() {
     </ThemedScreen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});

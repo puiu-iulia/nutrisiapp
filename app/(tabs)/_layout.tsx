@@ -36,9 +36,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="recipes"
         options={{
-          title: 'Recipes',
+          title: 'All Recipes',
           tabBarIcon: ({ color }) => (
             <BookMarked color={color} />
           ),
