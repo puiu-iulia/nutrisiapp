@@ -81,6 +81,7 @@ const tamaguiConfig = createTamagui({
       ...tokens.color,
       nutrisi: '#4f6c4e',
       nutrisiLight: '#f0f4f0',
+      nutrisiDark: '#c4d4c4',
     },
   },
   themes: { ...themes, nutrisi: nutrisiTheme },
