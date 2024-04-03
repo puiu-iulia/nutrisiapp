@@ -6,9 +6,7 @@ function PremiumCard() {
     <View
       p={16}
       br={16}
-      bc={'#c4d4c4'}
-      borderColor={'$nutrisi'}
-      borderWidth={0}
+      bc={'$nutrisiDark'}
       elevationAndroid={4}
       fd={'row'}
       jc={'space-between'}
