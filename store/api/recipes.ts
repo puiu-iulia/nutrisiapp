@@ -5,15 +5,12 @@ import {
 import { Recipe, RecipeData } from '@/types/recipes';
 import { RootState } from '../store';
 
-const API_URL = 'http://192.168.0.101:3000/api/v1/';
-
 export const recipeApiSlice = createApi({
   reducerPath: 'recipes',
   baseQuery: fetchBaseQuery({
-    baseUrl: API_URL,
+    baseUrl: process.env.EXPO_PUBLIC_API_URL,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
-      console.log(token);
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
@@ -47,7 +44,7 @@ export const recipeApiSlice = createApi({
     }),
     getRecipes: build.query<Recipe[], void>({
       query: () => ({
-        url: 'recipes/recipes/',
+        url: 'recipes',
         method: 'GET',
       }),
       providesTags: (result) =>
@@ -79,9 +76,9 @@ export const recipeApiSlice = createApi({
     //   }),
     //   invalidatesTags: ['Recipes', 'MealPlans'],
     // }),
-    getRecipeById: build.query<Recipe, number>({
+    getRecipeById: build.query<any, any>({
       query: (id) => ({
-        url: `${id}/`,
+        url: `/recipes/${id}`,
         method: 'GET',
       }),
       providesTags: ['Recipes', 'MealPlans'],

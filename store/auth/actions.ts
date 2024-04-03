@@ -20,14 +20,12 @@ export const registerUser = createAsyncThunk(
     data: { email: string; password: string },
     { rejectWithValue },
   ) => {
-    //console.log(data);
     try {
       const response = await axios.post(
         `${API_URL}/register`,
         data,
         config,
       );
-      console.log(response.data.token);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
