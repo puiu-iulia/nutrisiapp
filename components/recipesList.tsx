@@ -1,115 +1,85 @@
 import { View, Text, XStack, Separator } from 'tamagui';
 import { Pressable, FlatList } from 'react-native';
-import { ChevronRight } from '@tamagui/lucide-icons';
+import { Users, Timer } from '@tamagui/lucide-icons';
 
 import PressableText from './pressableText';
 
 interface RecipeListProps {
   recipes: any[];
+  onItemPress: (id: any) => void;
 }
 
-interface LabelProps {
-  label: string;
-  value: string;
-}
-
-function RecipeList({ recipes }: RecipeListProps) {
-  function Label({ label, value }: LabelProps) {
-    return (
-      <View>
-        <Text fontSize={15} color={'$gray1Dark'} pb={2}>
-          {label}
-        </Text>
-        <Text
-          fontWeight={'bold'}
-          color={'$gray1Dark'}
-          fontSize={15}
-        >
-          {value}
-        </Text>
-      </View>
-    );
-  }
-
+function RecipeList({
+  recipes,
+  onItemPress,
+}: RecipeListProps) {
+  //console.log('recipes', recipes);
   return (
     <View mt={16} flex={1}>
-      <XStack justifyContent="space-between">
-        <Text
-          fontSize={16}
-          color={'$gray5Dark'}
-          fontWeight={'600'}
-        >
-          Latest recipes
-        </Text>
-        <PressableText text="See All" onPress={() => {}} />
-      </XStack>
       <FlatList
         data={recipes}
+        numColumns={2}
         showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
+        columnWrapperStyle={{
+          justifyContent: 'space-between',
+          gap: 16,
+        }}
         renderItem={({ item }) => (
-          <Pressable>
-            <XStack
-              bc={'white'}
+          <Pressable
+            style={{ width: '48%', height: 160 }}
+            onPress={function onPress() {
+              onItemPress(item._id);
+            }}
+          >
+            <View
+              bc={'$nutrisiDark'}
               mb={8}
-              p={16}
               br={16}
-              shadowColor={'$gray6Dark'}
-              shadowOpacity={0.2}
+              f={1}
+              p={16}
+              shadowColor={'$nutrisi'}
               shadowRadius={4}
               overflow="hidden"
-              justifyContent="space-between"
-              alignItems="center"
+              jc={'space-between'}
             >
-              <View width={'85%'}>
-                <Text
-                  color={'$gray1Dark'}
-                  fontSize={24}
-                  pb={8}
-                  numberOfLines={1}
-                  fontFamily={'$heading'}
-                  fontWeight={'600'}
-                >
-                  {item.name}
-                </Text>
-                <XStack
-                  justifyContent="space-between"
-                  pb={8}
-                >
-                  <Label
-                    label="Calories"
-                    value={item.calories.replace(
-                      ' per serving',
-                      'kcal',
-                    )}
-                  />
-                  <Separator vertical />
-                  <Label
-                    label="Prep Time"
-                    value={item.prepTime}
-                  />
-                  <Separator vertical />
-                  <Label
-                    label="Cook Time"
-                    value={item.cookTime}
-                  />
+              <Text
+                color={'$gray1Dark'}
+                fontSize={18}
+                pb={8}
+                numberOfLines={2}
+                fontFamily={'$heading'}
+                fontWeight={'600'}
+              >
+                {item.name}
+              </Text>
+              <XStack pb={8} bc={'white'}>
+                <XStack>
+                  <Users size={24} color={'$gray1Dark'} />
+                  <Text fontSize={24}>
+                    {item?.servings}
+                  </Text>
                 </XStack>
-                <Text color={'$gray1Dark'} fontSize={15}>
-                  {'Fat: ' +
-                    item.fat +
-                    ', Carbs: ' +
-                    item.carbs +
-                    ', Protein: ' +
-                    item.protein}
-                </Text>
-              </View>
-              <View>
-                <ChevronRight
-                  size={24}
-                  color={'$gray10Dark'}
-                />
-              </View>
-            </XStack>
+                <XStack>
+                  <Separator vertical />
+                  <Timer size={24} color={'$gray1Dark'} />
+                  <Text>
+                    {Number(
+                      item?.prepTime.replace(
+                        ' minutes',
+                        '',
+                      ),
+                    ) +
+                      Number(
+                        item?.cookTime.replace(
+                          ' minutes',
+                          '',
+                        ),
+                      )}
+                  </Text>
+                </XStack>
+              </XStack>
+            </View>
           </Pressable>
         )}
       />
