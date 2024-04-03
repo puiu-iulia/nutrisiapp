@@ -26,7 +26,8 @@ function ThemedButton({
         <Text
           fontSize={18}
           color={'white'}
-          fontWeight={'700'}
+          fontWeight={'600'}
+          fontFamily={'$nutrisi'}
         >
           {buttonTitle}
         </Text>
