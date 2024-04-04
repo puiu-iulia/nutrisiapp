@@ -39,31 +39,56 @@ function RecipeList({
               f={1}
               p={16}
               shadowColor={'$nutrisi'}
-              shadowRadius={4}
-              overflow="hidden"
+              shadowRadius={2}
+              elevationAndroid={2}
+              //overflow="hidden"
               jc={'space-between'}
             >
-              <Text
-                color={'$gray1Dark'}
-                fontSize={18}
-                pb={8}
-                numberOfLines={2}
-                fontFamily={'$heading'}
-                fontWeight={'600'}
+              <View
+                br={8}
+                backgroundColor={'$nutrisiLight'}
+                paddingHorizontal={8}
+                paddingVertical={4}
+                opacity={0.8}
               >
-                {item.name}
-              </Text>
-              <XStack pb={8} bc={'white'}>
-                <XStack>
-                  <Users size={24} color={'$gray1Dark'} />
-                  <Text fontSize={24}>
+                <Text
+                  color={'$gray1Dark'}
+                  fontSize={16}
+                  numberOfLines={2}
+                  fontFamily={'$nutrisi'}
+                  fontWeight={'600'}
+                >
+                  {item.name}
+                </Text>
+              </View>
+              <XStack
+                bc={'$nutrisiLight'}
+                ai={'center'}
+                jc={'space-around'}
+                br={8}
+                paddingHorizontal={8}
+                paddingVertical={4}
+                w={100}
+                opacity={0.7}
+              >
+                <XStack ai={'center'}>
+                  <Users
+                    size={18}
+                    color={'$gray1Dark'}
+                    //style={{ marginTop: 2 }}
+                  />
+                  <Text fontSize={18} color={'$gray1Dark'}>
                     {item?.servings}
                   </Text>
                 </XStack>
+                <Separator vertical />
                 <XStack>
-                  <Separator vertical />
-                  <Timer size={24} color={'$gray1Dark'} />
-                  <Text>
+                  <Timer
+                    size={18}
+                    color={'$gray1Dark'}
+                    style={{ marginTop: 2 }}
+                  />
+                  <Text fontSize={18} color={'$gray1Dark'}>
                     {Number(
                       item?.prepTime.replace(
                         ' minutes',

@@ -13,7 +13,7 @@ function ThemedScreen({ children }: screenProps) {
       f={1}
       backgroundColor={'$nutrisiLight'}
       paddingHorizontal={16}
-      pt={Platform.OS == 'ios' ? 56 : 24}
+      pt={Platform.OS == 'ios' ? 64 : 32}
     >
       {children}
     </View>
