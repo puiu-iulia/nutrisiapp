@@ -21,35 +21,32 @@ import ThemedInput from '@/components/input';
 import RecipeList from '@/components/recipesList';
 import PremiumCard from '@/components/premiumCard';
 import ThemedImagePicker from '@/components/imagePicker';
+import FiltersModal from '@/components/filtersModal';
 import {
   useGenerateRecipeMutation,
   useGetPuplicRecipesQuery,
 } from '@/store/api/recipes';
+import { setRecipePreferences } from '@/store/preferences/actions';
 
 export default function Generate() {
   const [ingredients, setIngredients] =
     useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [publicRecipes, setPublicRecipes] = useState<any>(
-    [],
-  );
+  const [recipePreferences, setRecipePreferences] =
+    useState<any>([]);
 
-  const router = useRouter();
   const [generateRecipe, { data, error, isLoading }] =
     useGenerateRecipeMutation();
 
-  const {
-    data: recipes,
-    error: recipesError,
-    isFetching,
-  } = useGetPuplicRecipesQuery();
-  //console.log('recipes', isFetching, recipes, recipesError);
-
-  useEffect(() => {
-    if (recipes && recipes.length > 0 && !isFetching) {
-      setPublicRecipes(recipes);
-    }
-  }, [recipes]);
+  if (isLoading) {
+    return (
+      <ThemedScreen>
+        <View f={1} jc="center">
+          <Text>Loading...</Text>
+        </View>
+      </ThemedScreen>
+    );
+  }
 
   return (
     <ThemedScreen>
@@ -106,52 +103,24 @@ export default function Generate() {
           disabled={!ingredients}
           icon={<Wand2 size={20} color={'white'} />}
           onPress={() => {
-            setIsOpen(true);
             Keyboard.dismiss();
             generateRecipe({
               ingredientsText: ingredients,
+              preferences: recipePreferences,
             });
           }}
         />
       </View>
       <PremiumCard />
-      <Sheet
-        forceRemoveScrollEnabled={isOpen}
-        open={isOpen}
-        onOpenChange={setIsOpen}
-        zIndex={100_000}
-        snapPoints={[93]}
-        modal
-        dismissOnSnapToBottom
-      >
-        <Sheet.Overlay
-          animation="lazy"
-          enterStyle={{ opacity: 0 }}
-          exitStyle={{ opacity: 0 }}
-        />
-        <Sheet.Handle />
-        <Sheet.Frame>
-          <View p={16} bc={'white'} f={1}>
-            <Text fontSize={20} fontWeight={'bold'} pb={16}>
-              Generated Recipe
-            </Text>
-            <Text fontSize={16} color={'$gray1Dark'}>
-              {data?.data}
-            </Text>
-            <Button
-              onPress={() => setIsOpen(false)}
-              bc={'$nutrisi'}
-              color={'white'}
-              fontSize={16}
-              mb={16}
-              fontWeight={'bold'}
-              p={16}
-            >
-              Close
-            </Button>
-          </View>
-        </Sheet.Frame>
-      </Sheet>
+      <FiltersModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        data={data}
+        applyFilters={(preferences: string[]) => {
+          setRecipePreferences(preferences);
+          setIsOpen(false);
+        }}
+      />
     </ThemedScreen>
   );
 }
