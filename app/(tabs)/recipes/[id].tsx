@@ -10,7 +10,10 @@ import {
 import ThemedScreen from '@/components/screen';
 import RecipeDetails from '@/components/recipeDetails';
 import RecipeDetailsTabs from '@/components/recipeDetailsTabs';
-import { useGetRecipeByIdQuery } from '@/store/api/recipes';
+import {
+  useGetRecipeByIdQuery,
+  useUploadRecipeImageMutation,
+} from '@/store/api/recipes';
 
 function details() {
   const [recipe, setRecipe] = useState<any>(null);
@@ -19,6 +22,8 @@ function details() {
   const { data, error, isLoading } = useGetRecipeByIdQuery(
     localSearchParams.id,
   );
+  const [uploadRecipeImage] =
+    useUploadRecipeImageMutation();
   const router = useRouter();
 
   useEffect(() => {
@@ -27,17 +32,44 @@ function details() {
     }
   }, [data, isLoading, error]);
 
+  const handleUploadImage = async (uri: string) => {
+    const file = new FormData();
+    // @ts-ignore
+    file.append('file', {
+      name: 'image.jpg',
+      type: 'image/jpeg',
+      uri:
+        Platform.OS === 'ios'
+          ? uri.replace('file://', '')
+          : uri,
+    });
+
+    const response = await uploadRecipeImage({
+      recipeId: localSearchParams.id,
+      file,
+    });
+
+    // @ts-ignore
+    if (response.error) {
+      // @ts-ignore
+      console.log('error', response.error);
+    }
+  };
+
   //console.log('data', data, error, isLoading);
 
   return (
-    <ThemedScreen>
-      <View>
-        <RecipeDetails
-          recipe={recipe}
-          isLoading={isLoading}
-          error={error}
-          goBack={() => router.back()}
-        />
+    <View>
+      <RecipeDetails
+        recipe={recipe}
+        isLoading={isLoading}
+        error={error}
+        goBack={() => router.back()}
+        onPhotoChange={(uri: string) => {
+          handleUploadImage(uri);
+        }}
+      />
+      <View paddingHorizontal={8}>
         <RecipeDetailsTabs
           ingredients={recipe?.ingredients}
           steps={recipe?.steps}
@@ -58,7 +90,7 @@ function details() {
           ]}
         />
       </View>
-    </ThemedScreen>
+    </View>
   );
 }
 

@@ -76,12 +76,19 @@ export const recipeApiSlice = createApi({
     //   }),
     //   invalidatesTags: ['Recipes', 'MealPlans'],
     // }),
+    uploadRecipeImage: build.mutation<any, any>({
+      query: ({ file, recipeId }) => ({
+        url: `recipes/${recipeId}/photo`,
+        method: 'PUT',
+        body: file,
+      }),
+    }),
     getRecipeById: build.query<any, any>({
       query: (id) => ({
         url: `/recipes/${id}`,
         method: 'GET',
       }),
-      providesTags: ['Recipes', 'MealPlans'],
+      providesTags: ['Recipes'],
     }),
     generateRecipe: build.mutation<any, any>({
       query: (ingredients) => ({
@@ -89,6 +96,8 @@ export const recipeApiSlice = createApi({
         method: 'POST',
         body: ingredients,
       }),
+      //@ts-ignore
+      providesTags: ['Recipes'],
     }),
   }),
 });
@@ -101,4 +110,5 @@ export const {
   useGetRecipeByIdQuery,
   useGenerateRecipeMutation,
   useGetPuplicRecipesQuery,
+  useUploadRecipeImageMutation,
 } = recipeApiSlice;
