@@ -26,25 +26,25 @@ export const recipeApiSlice = createApi({
         body: recipe,
       }),
     }),
-    getPuplicRecipes: build.query<any, void>({
+    getPuplicRecipes: build.query<Recipe[], void>({
       query: () => ({
         url: 'recipes/public',
         method: 'GET',
       }),
-      //   providesTags: (result) =>
-      //     result
-      //       ? [
-      //           ...result.map(({ id }) => ({
-      //             type: 'Recipes' as const,
-      //             id,
-      //           })),
-      //           { type: 'Recipes', id: 'LIST' },
-      //         ]
-      //       : [{ type: 'Recipes', id: 'LIST' }],
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({
+                type: 'Recipes' as const,
+                id,
+              })),
+              { type: 'Recipes', id: 'LIST' },
+            ]
+          : [{ type: 'Recipes', id: 'LIST' }],
     }),
-    getRecipes: build.query<Recipe[], void>({
-      query: () => ({
-        url: 'recipes',
+    getRecipes: build.query<Recipe[], string>({
+      query: (querySearch) => ({
+        url: `recipes?query=${querySearch}`,
         method: 'GET',
       }),
       providesTags: (result) =>
@@ -82,6 +82,7 @@ export const recipeApiSlice = createApi({
         method: 'PUT',
         body: file,
       }),
+      invalidatesTags: ['Recipes'],
     }),
     getRecipeById: build.query<any, any>({
       query: (id) => ({

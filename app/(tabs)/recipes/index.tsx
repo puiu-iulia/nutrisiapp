@@ -3,28 +3,69 @@ import { View, Text } from 'tamagui';
 import { useRouter } from 'expo-router';
 
 import ThemedScreen from '@/components/screen';
+import Header from '@/components/Header';
 import RecipeList from '@/components/recipesList';
 import { useGetRecipesQuery } from '@/store/api/recipes';
 
 function index() {
-  const { data, error, isLoading } = useGetRecipesQuery();
   const [recipes, setRecipes] = useState<any>([]);
+  const [searchQuery, setSearchQuery] =
+    useState<string>('');
+  const { data, error, isLoading, refetch } =
+    useGetRecipesQuery(searchQuery, {
+      refetchOnMountOrArgChange: true,
+    });
 
   const router = useRouter();
+  //console.log('data', searchQuery, error, isLoading);
 
   useEffect(() => {
-    if (data && data.length > 0 && !isLoading) {
+    if (data && !isLoading) {
       setRecipes(data);
     }
-  }, [data]);
+  }, [data, searchQuery, refetch]);
+
+  if (isLoading) {
+    return (
+      <ThemedScreen>
+        <View f={1} jc="center">
+          <Text>Loading...</Text>
+        </View>
+      </ThemedScreen>
+    );
+  }
+
+  if (error) {
+    return (
+      <ThemedScreen>
+        <View f={1} jc="center">
+          <Text>
+            An error occured. Please try again later.
+          </Text>
+        </View>
+      </ThemedScreen>
+    );
+  }
+
   return (
     <ThemedScreen>
+      <Text
+        fontSize={24}
+        color={'$gray1Dark'}
+        fontWeight={'bold'}
+        w={'$15'}
+      >
+        All Recipes
+      </Text>
       <View f={1} jc="center">
         <RecipeList
           recipes={recipes}
           onItemPress={(id) =>
             router.navigate(`/(tabs)/recipes/${id}`)
           }
+          onSearch={(query) => {
+            setSearchQuery(query);
+          }}
         />
       </View>
     </ThemedScreen>
