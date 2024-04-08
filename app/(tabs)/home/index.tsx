@@ -28,6 +28,8 @@ import {
 } from '@/store/api/recipes';
 import { setRecipePreferences } from '@/store/preferences/actions';
 
+import Header from '@/components/Header';
+
 export default function Generate() {
   const [ingredients, setIngredients] =
     useState<string>('');
@@ -50,28 +52,11 @@ export default function Generate() {
 
   return (
     <ThemedScreen>
-      <View fd={'row'} jc={'space-between'} ai={'center'}>
-        <Text
-          fontSize={24}
-          color={'$gray1Dark'}
-          fontWeight={'bold'}
-          numberOfLines={2}
-          w={'$15'}
-          lh={32}
-          pb={16}
-        >
-          Not sure what to cook?
-        </Text>
-        <Pressable
-          onPress={() => setIsOpen(true)}
-          style={{
-            width: 24,
-            height: 24,
-          }}
-        >
-          <Settings2 size={24} color={'$gray1Dark'} />
-        </Pressable>
-      </View>
+      <Header
+        title="Generate Recipe"
+        icon={<Settings2 size={24} color={'$gray1Dark'} />}
+        onIconPress={() => setIsOpen(true)}
+      />
       <View
         p={16}
         br={16}
