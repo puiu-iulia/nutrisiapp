@@ -57,7 +57,7 @@ function RecipeDetails({
       <ImageBackground
         style={{
           width: '100%',
-          height: 260,
+          height: 280,
           backgroundColor: '#c4d4c4',
         }}
         source={{
@@ -68,7 +68,7 @@ function RecipeDetails({
       >
         <XStack
           ai={'center'}
-          mb={8}
+          paddingHorizontal={8}
           pt={Platform.OS == 'ios' ? 54 : 32}
         >
           <Pressable

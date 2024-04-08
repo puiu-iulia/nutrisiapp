@@ -40,9 +40,10 @@ const PREFERENCES = [
     type: 'Time',
     values: [
       { title: 'Under 20 minutes' },
-      { title: 'Under 40 minutes' },
+      { title: 'Under 30 minutes' },
+      { title: 'Under 45 minutes' },
       { title: 'Under 1 hour' },
-      { title: 'Under 2 hours' },
+      { title: 'Under 90 minutes' },
     ],
   },
   {

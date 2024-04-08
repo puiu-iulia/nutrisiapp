@@ -109,6 +109,7 @@ function RecipeDetailsTabs({
       flexDirection="column"
       width={'100%'}
       height={'100%'}
+      paddingHorizontal={8}
       overflow="hidden"
       activationMode="manual"
       // borderColor="$nutrisiDark"
