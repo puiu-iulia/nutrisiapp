@@ -5,7 +5,10 @@ import { useRouter } from 'expo-router';
 import ThemedScreen from '@/components/screen';
 import Header from '@/components/Header';
 import RecipeList from '@/components/recipesList';
-import { useGetRecipesQuery } from '@/store/api/recipes';
+import {
+  useGetRecipesQuery,
+  useDeleteRecipeMutation,
+} from '@/store/api/recipes';
 
 function index() {
   const [recipes, setRecipes] = useState<any>([]);
@@ -16,8 +19,17 @@ function index() {
       refetchOnMountOrArgChange: true,
     });
 
+  const [
+    deleteRecipe,
+    {
+      data: deleteData,
+      error: deleteError,
+      isLoading: deleteIsLoading,
+    },
+  ] = useDeleteRecipeMutation();
+
   const router = useRouter();
-  //console.log('data', searchQuery, error, isLoading);
+  console.log('delte', deleteError, error, isLoading);
 
   useEffect(() => {
     if (data && !isLoading) {
@@ -63,6 +75,11 @@ function index() {
           onItemPress={(id) =>
             router.navigate(`/(tabs)/recipes/${id}`)
           }
+          onDelete={async (id) => {
+            console.log('deleted', id);
+            await deleteRecipe(id);
+            console.log('deleted', id);
+          }}
           onSearch={(query) => {
             setSearchQuery(query);
           }}

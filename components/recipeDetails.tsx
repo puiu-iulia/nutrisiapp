@@ -21,6 +21,7 @@ interface RecipeDetailsProps {
   error: any;
   goBack: () => void;
   onPhotoChange: (uri: string) => void;
+  onOpenDialog: () => void;
 }
 
 interface LabelProps {
@@ -34,6 +35,7 @@ function RecipeDetails({
   error,
   goBack,
   onPhotoChange,
+  onOpenDialog,
 }: RecipeDetailsProps) {
   console.log('recipe', recipe);
   function Label({ label, value }: LabelProps) {
@@ -93,15 +95,12 @@ function RecipeDetails({
             {recipe?.name}
           </Text>
           <Pressable
-            onPress={goBack}
-            style={{
-              width: 40,
-              height: 40,
-              justifyContent: 'center',
-              alignItems: 'flex-start',
+            onPress={() => {
+              onOpenDialog();
             }}
+            style={styles.buttonContainer}
           >
-            {/* <ArrowLeft color={'$nutrisi'} size={30} /> */}
+            <Trash2 color={'$nutrisi'} size={30} />
           </Pressable>
         </XStack>
       </ImageBackground>

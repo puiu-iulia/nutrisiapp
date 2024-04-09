@@ -58,9 +58,9 @@ export const recipeApiSlice = createApi({
             ]
           : [{ type: 'Recipes', id: 'LIST' }],
     }),
-    deleteRecipe: build.mutation<void, number>({
+    deleteRecipe: build.mutation<void, any>({
       query: (id) => ({
-        url: `${id}/`,
+        url: `recipes/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Recipes', 'MealPlans'],

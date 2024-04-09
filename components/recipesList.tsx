@@ -4,7 +4,7 @@ import {
   Text,
   XStack,
   Separator,
-  Input,
+  AlertDialog,
 } from 'tamagui';
 import {
   Pressable,
@@ -20,12 +20,10 @@ import {
   X,
 } from '@tamagui/lucide-icons';
 
-import PressableText from './pressableText';
-import ThemedInput from './input';
-
 interface RecipeListProps {
   recipes: any[];
   onItemPress: (id: any) => void;
+  onDelete: (id: any) => void;
   onSearch: (query: string) => void;
 }
 
@@ -33,6 +31,7 @@ function RecipeList({
   recipes,
   onItemPress,
   onSearch,
+  onDelete,
 }: RecipeListProps) {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -46,6 +45,7 @@ function RecipeList({
     setSearchQuery('');
     onSearch('');
   }
+
   return (
     <View mt={16} flex={1}>
       <XStack
@@ -109,11 +109,15 @@ function RecipeList({
               onPress={function onPress() {
                 onItemPress(item._id);
               }}
+              // onLongPress={function onLongPress() {
+              //   setIsDialogOpen(true);
+              //   setRecipeId(item._id);
+              // }}
             >
               <ImageBackground
                 source={{
                   uri:
-                    'http://192.168.0.103:3000/uploads/' +
+                    process.env.EXPO_PUBLIC_IMAGE_URL +
                     item?.image,
                 }}
                 style={{
