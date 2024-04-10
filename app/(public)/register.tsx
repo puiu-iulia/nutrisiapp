@@ -11,6 +11,10 @@ const Page = () => {
   const loading = useSelector(
     (state: any) => state.auth.loading,
   );
+  const registerError = useSelector(
+    (state: any) => state.auth.error,
+  );
+  console.log('registerError', registerError);
 
   const dispatch = useDispatch();
 

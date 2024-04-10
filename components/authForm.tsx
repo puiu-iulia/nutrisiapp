@@ -47,6 +47,7 @@ function AuthForm({
           bc={'white'}
           borderWidth={0}
           mb={16}
+          color={'$gray3Dark'}
           onChangeText={setEmail}
         />
         <Input
@@ -56,17 +57,20 @@ function AuthForm({
           borderWidth={0}
           bc={'white'}
           mb={32}
+          color={'$gray3Dark'}
           onChangeText={setPassword}
         />
         <ThemedButton
           buttonTitle={type.toUpperCase()}
           onPress={onHandleSubmit}
+          disabled={!email || !password}
         />
         <Link href={link} asChild>
           <Pressable>
             <Text
               fontSize={16}
               mt={16}
+              color={'$nutrisi'}
               textAlign="center"
               textDecorationLine="underline"
             >

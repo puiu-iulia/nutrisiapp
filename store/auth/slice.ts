@@ -8,6 +8,7 @@ import {
   getUser,
   logoutUser,
   setAuthData,
+  deleteUser,
 } from './actions';
 
 export interface AuthState {
@@ -76,6 +77,18 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = null;
         state.token = null;
+      })
+      .addCase(deleteUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteUser.fulfilled, (state) => {
+        state.loading = false;
+        state.user = null;
+        state.token = null;
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
       });
   },
 });

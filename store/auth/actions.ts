@@ -6,7 +6,7 @@ import {
 import * as SecureStore from 'expo-secure-store';
 import { AuthState } from './slice';
 
-const API_URL = 'http://192.168.0.101:3000/api/v1/auth';
+const API_URL = `${process.env.EXPO_PUBLIC_API_URL}auth`;
 
 const config = {
   headers: {
@@ -63,6 +63,38 @@ export const getUser = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const deleteUser = createAsyncThunk(
+  'auth/deleteUser',
+  async (_, { rejectWithValue }) => {
+    try {
+      const token =
+        await SecureStore.getItemAsync('auth_token');
+      const getUserResponse = await axios.get(
+        `${API_URL}/user`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      console.log('getUserResponse', getUserResponse);
+      const userId = getUserResponse.data;
+      const response = await axios.delete(
+        `${API_URL}/user/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      await SecureStore.deleteItemAsync('auth_token');
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);

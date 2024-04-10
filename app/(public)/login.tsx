@@ -14,6 +14,11 @@ const Page = () => {
   const loading = useSelector(
     (state: any) => state.auth.loading,
   );
+  const loginError = useSelector(
+    (state: any) => state.auth.error,
+  );
+
+  console.log('loginError', loginError);
 
   const dispatch = useDispatch();
 
