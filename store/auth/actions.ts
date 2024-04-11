@@ -58,7 +58,7 @@ export const getUser = createAsyncThunk(
     try {
       const token =
         await SecureStore.getItemAsync('auth_token');
-      const response = await axios.get(`${API_URL}/user`, {
+      const response = await axios.get(`${API_URL}/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -77,17 +77,16 @@ export const deleteUser = createAsyncThunk(
       const token =
         await SecureStore.getItemAsync('auth_token');
       const getUserResponse = await axios.get(
-        `${API_URL}/user`,
+        `${API_URL}/me`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         },
       );
-      console.log('getUserResponse', getUserResponse);
-      const userId = getUserResponse.data;
+      const userId = getUserResponse.data.data._id;
       const response = await axios.delete(
-        `${API_URL}/user/${userId}`,
+        `${process.env.EXPO_PUBLIC_API_URL}users/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

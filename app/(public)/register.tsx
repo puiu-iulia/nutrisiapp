@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
 import { View, Spinner } from 'tamagui';
 import { useDispatch, useSelector } from 'react-redux';
 import * as SecureStore from 'expo-secure-store';
@@ -8,12 +9,36 @@ import ThemedScreen from '@/components/screen';
 import { registerUser } from '@/store/auth/actions';
 
 const Page = () => {
+  const [registerError, setRegisterError] =
+    useState<any>(null);
   const loading = useSelector(
     (state: any) => state.auth.loading,
   );
-  const registerError = useSelector(
+  const error = useSelector(
     (state: any) => state.auth.error,
   );
+  useEffect(() => {
+    if (error) {
+      setRegisterError(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (registerError) {
+      Alert.alert(
+        'Email already in use',
+        'Authentication Error',
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              setRegisterError(null);
+            },
+          },
+        ],
+      );
+    }
+  }, [registerError]);
   console.log('registerError', registerError);
 
   const dispatch = useDispatch();

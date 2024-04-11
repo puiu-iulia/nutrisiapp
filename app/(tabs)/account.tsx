@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, Separator } from 'tamagui';
 import { Pressable } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ThemedScreen from '@/components/screen';
 import Header from '@/components/Header';
@@ -9,6 +9,7 @@ import ConfirmationDialog from '@/components/confirmationDialog';
 import {
   logoutUser,
   deleteUser,
+  getUser,
 } from '@/store/auth/actions';
 import { useRouter } from 'expo-router';
 
@@ -16,6 +17,8 @@ export default function AccountScreen() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const user = useSelector((state: any) => state.auth.user);
 
   function handleLogout() {
     // @ts-ignore
@@ -37,6 +40,12 @@ export default function AccountScreen() {
     closeDialog();
     router.push('/register');
   }
+
+  useEffect(() => {
+    // @ts-ignore
+    dispatch(getUser());
+  }, []);
+
   return (
     <ThemedScreen>
       <Header title="Account" />

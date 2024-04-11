@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Pressable } from 'react-native';
+import { Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, Spinner } from 'tamagui';
@@ -14,13 +14,38 @@ const Page = () => {
   const loading = useSelector(
     (state: any) => state.auth.loading,
   );
-  const loginError = useSelector(
+  const error = useSelector(
     (state: any) => state.auth.error,
   );
 
-  console.log('loginError', loginError);
+  const [loginError, setLoginError] = useState<any>(null);
+
+  console.log('loginError', error);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (error) {
+      setLoginError(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (loginError) {
+      Alert.alert(
+        'Invalid Credentials',
+        'Authentication Error',
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              setLoginError(null);
+            },
+          },
+        ],
+      );
+    }
+  }, [loginError]);
 
   async function tryLocalSignin() {
     dispatch(
