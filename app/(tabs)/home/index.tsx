@@ -28,7 +28,7 @@ import {
 } from '@/store/api/recipes';
 import { setRecipePreferences } from '@/store/preferences/actions';
 
-import Header from '@/components/Header';
+import Header from '@/components/header';
 
 export default function Generate() {
   const [ingredients, setIngredients] =
@@ -40,11 +40,31 @@ export default function Generate() {
   const [generateRecipe, { data, error, isLoading }] =
     useGenerateRecipeMutation();
 
+  const router = useRouter();
+
+  useEffect(() => {
+    if (data && !isLoading && !error) {
+      router.navigate(`(tabs)/recipes/${data?.data._id}`);
+    }
+  }, [data, isLoading, error]);
+
   if (isLoading) {
     return (
       <ThemedScreen>
         <View f={1} jc="center">
           <Text>Loading...</Text>
+        </View>
+      </ThemedScreen>
+    );
+  }
+
+  if (error) {
+    return (
+      <ThemedScreen>
+        <View f={1} jc="center">
+          <Text>
+            An error occured. Please try again later.
+          </Text>
         </View>
       </ThemedScreen>
     );
