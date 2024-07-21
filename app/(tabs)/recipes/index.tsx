@@ -3,6 +3,7 @@ import { View, Text } from 'tamagui';
 import { useRouter } from 'expo-router';
 
 import ThemedScreen from '@/components/screen';
+import ThemedSpinner from '@/components/spinner';
 import RecipeList from '@/components/recipesList';
 import {
   useGetRecipesQuery,
@@ -36,13 +37,7 @@ function index() {
   }, [data, searchQuery, refetch]);
 
   if (isLoading) {
-    return (
-      <ThemedScreen>
-        <View f={1} jc="center">
-          <Text>Loading...</Text>
-        </View>
-      </ThemedScreen>
-    );
+    return <ThemedSpinner />;
   }
 
   if (error) {

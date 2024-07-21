@@ -1,17 +1,6 @@
 import { useEffect, useState } from 'react';
-import {
-  StyleSheet,
-  Platform,
-  Keyboard,
-  Pressable,
-} from 'react-native';
-import {
-  Button,
-  View,
-  Text,
-  Sheet,
-  TextArea,
-} from 'tamagui';
+import { Keyboard } from 'react-native';
+import { View, Text } from 'tamagui';
 import { Wand2, Settings2 } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
 
@@ -20,7 +9,7 @@ import ThemedButton from '@/components/button';
 import ThemedInput from '@/components/input';
 import RecipeList from '@/components/recipesList';
 import PremiumCard from '@/components/premiumCard';
-import ThemedImagePicker from '@/components/imagePicker';
+import ThemedSpinner from '@/components/spinner';
 import FiltersModal from '@/components/filtersModal';
 import {
   useGenerateRecipeMutation,
@@ -49,13 +38,7 @@ export default function Generate() {
   }, [data, isLoading, error]);
 
   if (isLoading) {
-    return (
-      <ThemedScreen>
-        <View f={1} jc="center">
-          <Text>Loading...</Text>
-        </View>
-      </ThemedScreen>
-    );
+    return <ThemedSpinner />;
   }
 
   if (error) {
