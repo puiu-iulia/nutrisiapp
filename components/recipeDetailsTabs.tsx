@@ -27,8 +27,6 @@ function RecipeDetailsTabs({
   steps,
   macros,
 }: any) {
-  //console.log('ingredients', steps);
-
   const [tabState, setTabState] = useState<{
     currentTab: string;
     /**
@@ -112,20 +110,8 @@ function RecipeDetailsTabs({
       paddingHorizontal={8}
       overflow="hidden"
       activationMode="manual"
-      // borderColor="$nutrisiDark"
-      // borderWidth={1}
     >
       <YStack>
-        {/* <AnimatePresence>
-          {intentAt && (
-            <TabsRovingIndicator
-              width={intentAt.width}
-              height={intentAt.height}
-              x={intentAt.x}
-              y={intentAt.y}
-            />
-          )}
-        </AnimatePresence> */}
         <AnimatePresence>
           {activeAt && (
             <TabsRovingIndicator
@@ -139,9 +125,6 @@ function RecipeDetailsTabs({
           )}
         </AnimatePresence>
         <Tabs.List
-          // separator={<Separator vertical />}
-          //disablePassBorderRadius="bottom"
-          //aria-label="Manage your account"
           borderColor={'$nutrisiDark'}
           borderWidth={1}
           borderRadius={0}
@@ -204,6 +187,9 @@ function RecipeDetailsTabs({
               return (
                 <XStack f={1} paddingVertical={8}>
                   <Text color={'$gray2Dark'} fontSize={17}>
+                    {item.quantity + ' - '}
+                  </Text>
+                  <Text color={'$gray2Dark'} fontSize={17}>
                     {item.ingredient.name}
                   </Text>
                 </XStack>
@@ -213,27 +199,13 @@ function RecipeDetailsTabs({
         </Tabs.Content>
 
         <Tabs.Content value="tab2">
-          <View>
-            <FlatList
-              data={steps || []}
-              keyExtractor={(item: any) => item._id}
-              renderItem={({ item }) => {
-                return (
-                  <XStack
-                    f={1}
-                    paddingVertical={8}
-                    paddingHorizontal={16}
-                  >
-                    <Text
-                      color={'$gray2Dark'}
-                      fontSize={16}
-                    >
-                      {item.name}
-                    </Text>
-                  </XStack>
-                );
-              }}
-            />
+          <View paddingVertical={8}>
+            <Text color={'$gray2Dark'} fontSize={17}>
+              {steps.replace(
+                /(\d\.\s.*?\.)(?=\s*\d\.)/g,
+                '$1\n\n',
+              )}
+            </Text>
           </View>
         </Tabs.Content>
 
@@ -280,30 +252,5 @@ const TabsRovingIndicator = ({
     />
   );
 };
-
-const AnimatedYStack = styled(YStack, {
-  variants: {
-    isLeft: { true: { x: -25, opacity: 0 } },
-    isRight: { true: { x: 25, opacity: 0 } },
-    defaultFade: { true: { opacity: 0 } },
-  } as const,
-});
-
-// function DetailsList({ data }: any) {
-//   console.log('data', data);
-//   return (
-//     <FlatList
-//       data={data}
-//       keyExtractor={(item: any) => item._id}
-//       renderItem={(item: any) => (
-//         <XStack f={1} paddingVertical={8}>
-//           <Text color={'$gray2Dark'} fontSize={17}>
-//             {item.name}
-//           </Text>
-//         </XStack>
-//       )}
-//     />
-//   );
-// }
 
 export default RecipeDetailsTabs;

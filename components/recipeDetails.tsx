@@ -10,7 +10,7 @@ import {
   Plus,
   Trash2,
 } from '@tamagui/lucide-icons';
-import { XStack, Text, View, Separator } from 'tamagui';
+import { XStack, Text, View } from 'tamagui';
 
 import ThemedImagePicker from './imagePicker';
 import PressableText from './pressableText';
@@ -24,11 +24,6 @@ interface RecipeDetailsProps {
   onOpenDialog: () => void;
 }
 
-interface LabelProps {
-  label: string;
-  value: string;
-}
-
 function RecipeDetails({
   recipe,
   isLoading,
@@ -37,23 +32,6 @@ function RecipeDetails({
   onPhotoChange,
   onOpenDialog,
 }: RecipeDetailsProps) {
-  console.log('recipe', recipe);
-  function Label({ label, value }: LabelProps) {
-    return (
-      <View>
-        <Text fontSize={15} color={'$gray1Dark'} pb={2}>
-          {label}
-        </Text>
-        <Text
-          fontWeight={'bold'}
-          color={'$gray1Dark'}
-          fontSize={15}
-        >
-          {value}
-        </Text>
-      </View>
-    );
-  }
   return (
     <View>
       <ImageBackground
@@ -63,9 +41,7 @@ function RecipeDetails({
           backgroundColor: '#c4d4c4',
         }}
         source={{
-          uri:
-            'http://192.168.0.103:3000/uploads/' +
-            recipe?.image,
+          uri: recipe?.image,
         }}
       >
         <XStack
@@ -77,19 +53,16 @@ function RecipeDetails({
             onPress={goBack}
             style={styles.buttonContainer}
           >
-            <ArrowLeft color={'$nutrisi'} size={30} />
+            <ArrowLeft color={'$nutrisi'} size={24} />
           </Pressable>
           <Text
             color={'white'}
             textShadowColor={'black'}
             textShadowRadius={4}
-            //textShadowOffset={{ width: 1, height: 1 }}
-            fontSize={23}
+            fontSize={20}
             fontWeight={'700'}
             ta={'center'}
-            //bc={'$nutrisiDark'}
             paddingHorizontal={16}
-            numberOfLines={2}
             f={4}
           >
             {recipe?.name}
@@ -100,7 +73,7 @@ function RecipeDetails({
             }}
             style={styles.buttonContainer}
           >
-            <Trash2 color={'$nutrisi'} size={30} />
+            <Trash2 color={'$nutrisi'} size={24} />
           </Pressable>
         </XStack>
       </ImageBackground>

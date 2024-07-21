@@ -86,23 +86,29 @@ function details() {
         }}
         onOpenDialog={handleDeleteConfirmation}
       />
-      <View paddingHorizontal={8}>
+      <View
+        paddingHorizontal={8}
+        alignContent={'space-between'}
+      >
         <RecipeDetailsTabs
           ingredients={recipe?.ingredients}
-          steps={recipe?.steps}
+          steps={recipe?.instructions}
           macros={[
             {
               _id: 1,
               name:
-                'Calories' +
+                'Calories: ' +
                 recipe?.calories +
                 ' per serving',
             },
-            { _id: 2, name: 'Carbs' + recipe?.carbs + 'g' },
-            { _id: 3, name: 'Fat' + recipe?.fat + 'g' },
+            {
+              _id: 2,
+              name: 'Carbs: ' + recipe?.carbs,
+            },
+            { _id: 3, name: 'Fat: ' + recipe?.fat },
             {
               _id: 4,
-              name: 'Protein' + recipe?.protein + 'g',
+              name: 'Protein: ' + recipe?.protein,
             },
           ]}
         />
