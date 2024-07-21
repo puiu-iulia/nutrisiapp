@@ -187,10 +187,10 @@ function RecipeDetailsTabs({
               return (
                 <XStack f={1} paddingVertical={8}>
                   <Text color={'$gray2Dark'} fontSize={17}>
-                    {item.quantity + ' - '}
+                    {item.ingredient.name + ' - '}
                   </Text>
                   <Text color={'$gray2Dark'} fontSize={17}>
-                    {item.ingredient.name}
+                    {item.quantity}
                   </Text>
                 </XStack>
               );
@@ -201,7 +201,7 @@ function RecipeDetailsTabs({
         <Tabs.Content value="tab2">
           <View paddingVertical={8}>
             <Text color={'$gray2Dark'} fontSize={17}>
-              {steps.replace(
+              {steps?.replace(
                 /(\d\.\s.*?\.)(?=\s*\d\.)/g,
                 '$1\n\n',
               )}

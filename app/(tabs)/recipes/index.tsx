@@ -3,7 +3,6 @@ import { View, Text } from 'tamagui';
 import { useRouter } from 'expo-router';
 
 import ThemedScreen from '@/components/screen';
-import Header from '@/components/Header';
 import RecipeList from '@/components/recipesList';
 import {
   useGetRecipesQuery,
@@ -29,7 +28,6 @@ function index() {
   ] = useDeleteRecipeMutation();
 
   const router = useRouter();
-  console.log('delte', deleteError, error, isLoading);
 
   useEffect(() => {
     if (data && !isLoading) {
@@ -76,9 +74,7 @@ function index() {
             router.navigate(`/(tabs)/recipes/${id}`)
           }
           onDelete={async (id) => {
-            console.log('deleted', id);
             await deleteRecipe(id);
-            console.log('deleted', id);
           }}
           onSearch={(query) => {
             setSearchQuery(query);

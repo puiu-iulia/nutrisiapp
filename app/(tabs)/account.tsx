@@ -4,7 +4,7 @@ import { Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import ThemedScreen from '@/components/screen';
-import Header from '@/components/Header';
+import Header from '@/components/header';
 import ConfirmationDialog from '@/components/confirmationDialog';
 import {
   logoutUser,

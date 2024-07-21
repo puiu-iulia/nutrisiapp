@@ -1,10 +1,8 @@
 import React from 'react';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { Link, Tabs } from 'expo-router';
+import { Tabs } from 'expo-router';
 import { Platform } from 'react-native';
-import { Home, BookMarked } from '@tamagui/lucide-icons';
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
   name: React.ComponentProps<
     typeof MaterialCommunityIcons
@@ -25,8 +23,6 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: '#4f6c4e',
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
         headerShown: false,
         tabBarStyle: {
           backgroundColor: '#f5f5f5',
