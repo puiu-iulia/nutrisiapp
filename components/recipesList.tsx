@@ -109,10 +109,6 @@ function RecipeList({
               onPress={function onPress() {
                 onItemPress(item._id);
               }}
-              // onLongPress={function onLongPress() {
-              //   setIsDialogOpen(true);
-              //   setRecipeId(item._id);
-              // }}
             >
               <ImageBackground
                 source={{
@@ -143,7 +139,7 @@ function RecipeList({
                     <Text
                       color={'$gray1Dark'}
                       fontSize={16}
-                      numberOfLines={2}
+                      numberOfLines={3}
                       fontWeight={'700'}
                     >
                       {item.name}
@@ -163,10 +159,9 @@ function RecipeList({
                       <Users
                         size={18}
                         color={'$gray1Dark'}
-                        //style={{ marginTop: 2 }}
                       />
                       <Text
-                        fontSize={18}
+                        fontSize={17}
                         color={'$gray1Dark'}
                       >
                         {item?.servings}
@@ -177,24 +172,14 @@ function RecipeList({
                       <Timer
                         size={18}
                         color={'$gray1Dark'}
-                        style={{ marginTop: 2 }}
                       />
                       <Text
-                        fontSize={18}
+                        fontSize={17}
                         color={'$gray1Dark'}
                       >
-                        {Number(
-                          item?.prepTime.replace(
-                            ' minutes',
-                            '',
-                          ),
-                        ) +
-                          Number(
-                            item?.cookTime.replace(
-                              ' minutes',
-                              '',
-                            ),
-                          )}
+                        {parseInt(item?.prepTime) +
+                          parseInt(item?.cookTime)}
+                        {''}'
                       </Text>
                     </XStack>
                   </XStack>
