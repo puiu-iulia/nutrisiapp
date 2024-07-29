@@ -108,6 +108,7 @@ const Page = () => {
               handleLogin(email, password);
             }}
             type="login"
+            error={loginError}
           />
         )}
       </View>

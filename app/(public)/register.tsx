@@ -71,6 +71,7 @@ const Page = () => {
               handleRegistration(email, password);
             }}
             type="register"
+            error={registerError}
           />
         )}
       </View>

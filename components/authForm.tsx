@@ -14,11 +14,13 @@ import ThemedButton from './button';
 interface AuthFormProps {
   onSubmit: (email: string, password: string) => void;
   type?: 'login' | 'register';
+  error: string | null;
 }
 
 function AuthForm({
   onSubmit,
   type = 'login',
+  error,
 }: AuthFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -56,10 +58,14 @@ function AuthForm({
           secureTextEntry
           borderWidth={0}
           bc={'white'}
-          mb={32}
           color={'$gray3Dark'}
           onChangeText={setPassword}
         />
+        <View mb={32} mt={8}>
+          {error ? (
+            <Text color={'$red7Dark'}>{error}</Text>
+          ) : null}
+        </View>
         <ThemedButton
           buttonTitle={type.toUpperCase()}
           onPress={onHandleSubmit}

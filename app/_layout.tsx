@@ -9,6 +9,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { TamaguiProvider, Theme } from 'tamagui';
+
+import { RevenueCatProvider } from '@/store/revenuecat/provider';
 import { store } from '@/store/store';
 
 export {
@@ -79,15 +81,17 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <TamaguiProvider config={tamaguiConfig}>
-      <Theme
-        name={colorScheme == 'dark' ? 'dark' : 'light'}
-      >
-        <Provider store={store}>
-          <StatusBar style="dark" />
-          <InitialLayout />
-        </Provider>
-      </Theme>
-    </TamaguiProvider>
+    <RevenueCatProvider>
+      <TamaguiProvider config={tamaguiConfig}>
+        <Theme
+          name={colorScheme == 'dark' ? 'dark' : 'light'}
+        >
+          <Provider store={store}>
+            <StatusBar style="dark" />
+            <InitialLayout />
+          </Provider>
+        </Theme>
+      </TamaguiProvider>
+    </RevenueCatProvider>
   );
 }
