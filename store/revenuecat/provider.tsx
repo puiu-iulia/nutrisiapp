@@ -163,7 +163,6 @@ export const RevenueCatProvider = ({ children }: any) => {
 
       //   }
     } catch (e: any) {
-      console.log('Error', e);
       if (!e.userCancelled) {
         alert(e);
       }

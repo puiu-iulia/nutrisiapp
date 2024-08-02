@@ -20,8 +20,6 @@ const Page = () => {
 
   const [loginError, setLoginError] = useState<any>(null);
 
-  console.log('loginError', error);
-
   const dispatch = useDispatch();
 
   useEffect(() => {

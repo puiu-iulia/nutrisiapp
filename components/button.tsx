@@ -24,7 +24,7 @@ function ThemedButton({
         disabledStyle={{ backgroundColor: '$gray8Light' }}
       >
         <Text
-          fontSize={18}
+          fontSize={17}
           color={'white'}
           fontWeight={'600'}
           fontFamily={'$nutrisi'}

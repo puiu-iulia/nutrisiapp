@@ -123,6 +123,9 @@ PODS:
   - libevent (2.1.12)
   - PurchasesHybridCommon (11.1.1):
     - RevenueCat (= 4.43.2)
+  - PurchasesHybridCommonUI (11.1.1):
+    - PurchasesHybridCommon (= 11.1.1)
+    - RevenueCatUI (= 4.43.2)
   - RCT-Folly (2022.05.16.00):
     - boost
     - DoubleConversion
@@ -1164,6 +1167,11 @@ PODS:
     - React-logger (= 0.73.6)
     - React-perflogger (= 0.73.6)
   - RevenueCat (4.43.2)
+  - RevenueCatUI (4.43.2):
+    - RevenueCat (= 4.43.2)
+  - RNPaywalls (7.28.1):
+    - PurchasesHybridCommonUI (= 11.1.1)
+    - React-Core
   - RNPurchases (7.28.1):
     - PurchasesHybridCommon (= 11.1.1)
     - React-Core
@@ -1253,6 +1261,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNPaywalls (from `../node_modules/react-native-purchases-ui`)
   - RNPurchases (from `../node_modules/react-native-purchases`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -1264,7 +1273,9 @@ SPEC REPOS:
     - fmt
     - libevent
     - PurchasesHybridCommon
+    - PurchasesHybridCommonUI
     - RevenueCat
+    - RevenueCatUI
     - SocketRocket
 
 EXTERNAL SOURCES:
@@ -1405,6 +1416,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNPaywalls:
+    :path: "../node_modules/react-native-purchases-ui"
   RNPurchases:
     :path: "../node_modules/react-native-purchases"
   RNReanimated:
@@ -1446,6 +1459,7 @@ SPEC CHECKSUMS:
   hermes-engine: 9cecf9953a681df7556b8cc9c74905de8f3293c0
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   PurchasesHybridCommon: 73f4f2c6e4ec3487b4219bf60e1661100fb85da3
+  PurchasesHybridCommonUI: 4c8b38f7cdb12d4d29813d9e2f90ca519ed04bec
   RCT-Folly: 7169b2b1c44399c76a47b5deaaba715eeeb476c0
   RCTRequired: ca1d7414aba0b27efcfa2ccd37637edb1ab77d96
   RCTTypeSafety: 678e344fb976ff98343ca61dc62e151f3a042292
@@ -1489,6 +1503,8 @@ SPEC CHECKSUMS:
   React-utils: d16c1d2251c088ad817996621947d0ac8167b46c
   ReactCommon: 2aa35648354bd4c4665b9a5084a7d37097b89c10
   RevenueCat: 3d934653b7e8b09af88fd47e9e84cfaf5d0a89ba
+  RevenueCatUI: 1417f375baf005eaf3afa8bc99724f567abfd6da
+  RNPaywalls: 3b1f151f7bbd00dea0aeb4ecb3bd60d243ec5d9e
   RNPurchases: 4305de02b902d3c1e56a50295dc0a6e758b73095
   RNReanimated: 8a4d86eb951a4a99d8e86266dc71d7735c0c30a9
   RNScreens: 17e2f657f1b09a71ec3c821368a04acbb7ebcb46

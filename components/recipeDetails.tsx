@@ -41,7 +41,7 @@ function RecipeDetails({
           backgroundColor: '#c4d4c4',
         }}
         source={{
-          uri: recipe?.image,
+          uri: recipe?.image || '',
         }}
       >
         <XStack
@@ -77,7 +77,7 @@ function RecipeDetails({
           </Pressable>
         </XStack>
       </ImageBackground>
-      <XStack jc={'space-around'} pt={16}>
+      {/* <XStack jc={'space-around'} pt={16}>
         <ThemedImagePicker
           onSubmit={(uri) => onPhotoChange(uri)}
         />
@@ -86,7 +86,7 @@ function RecipeDetails({
           icon={<Plus size={24} color={'$nutrisi'} />}
           onPress={() => {}}
         />
-      </XStack>
+      </XStack> */}
     </View>
   );
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { Tabs } from 'expo-router';
 import { Platform } from 'react-native';
+import { usePathname } from 'expo-router';
 
 function TabBarIcon(props: {
   name: React.ComponentProps<
@@ -19,6 +20,7 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
+  const path = usePathname();
   return (
     <Tabs
       screenOptions={{
@@ -66,6 +68,18 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="account" color={color} />
           ),
+          tabBarStyle: {
+            display:
+              path === '/account/subscription'
+                ? 'none'
+                : 'flex',
+            backgroundColor: '#f5f5f5',
+            height: Platform.OS == 'ios' ? 80 : 64,
+            paddingTop: 8,
+            paddingBottom: 8,
+            borderTopWidth: 1,
+            borderTopColor: '#f0f0f0',
+          },
         }}
       />
     </Tabs>

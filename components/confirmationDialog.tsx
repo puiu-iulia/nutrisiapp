@@ -84,7 +84,6 @@ export default function ConfirmationDialog({
               <AlertDialog.Action>
                 <Button
                   onPress={() => {
-                    console.log('accept');
                     onAccept();
                   }}
                   theme="active"

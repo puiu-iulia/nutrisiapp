@@ -23,14 +23,13 @@ function PremiumCard() {
           Premium for $9.99/month
         </Text>
         <Text
-          fontSize={17}
+          fontSize={16}
           fontWeight={'bold'}
           fontFamily={'$nutrisi'}
           lineHeight={24}
           color={'$gray5Dark'}
         >
-          Unlimited recipes, scan ingredients from images
-          and generate weekly mealplans
+          {`• Unlimited recipes \n• Scan ingredients from images and generate weekly mealplans (coming soon)`}
         </Text>
       </View>
       <View f={2} width={100} height={80}>

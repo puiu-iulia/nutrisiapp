@@ -39,7 +39,6 @@ const Page = () => {
       );
     }
   }, [registerError]);
-  console.log('registerError', registerError);
 
   const dispatch = useDispatch();
 
@@ -55,6 +54,7 @@ const Page = () => {
             'auth_token',
             action.payload.token,
           );
+          SecureStore.setItemAsync('free_recipes', '3');
         }
       },
     );

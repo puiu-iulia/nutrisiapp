@@ -55,7 +55,7 @@ function InitialLayout() {
   const token = useSelector(
     (state: any) => state.auth.token,
   );
-  console.log('token', token);
+  //console.log('token', token);
   const initialized = useSelector(
     (state: any) => state.auth.success,
   );

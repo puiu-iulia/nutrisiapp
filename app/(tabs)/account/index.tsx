@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { View, Text, Separator } from 'tamagui';
 import { Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 
 import ThemedScreen from '@/components/screen';
 import Header from '@/components/header';
@@ -14,7 +14,7 @@ import {
   getUser,
 } from '@/store/auth/actions';
 
-export default function AccountScreen() {
+export default function account() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [
     isSubscriptionModalOpen,
@@ -58,15 +58,17 @@ export default function AccountScreen() {
         title="Sign Out"
         onPress={handleLogout}
       />
-      <Separator />
+      <Separator borderColor={'$nutrisi'} />
       <AccountAction
         title="Delete Account"
         onPress={openDialog}
       />
+      <Separator borderColor={'$nutrisi'} />
       <AccountAction
         title={'Subscription'}
-        onPress={() => setIsSubscriptionModalOpen(true)}
+        onPress={() => router.push('/account/subscription')}
       />
+      <Separator borderColor={'$nutrisi'} />
       <ConfirmationDialog
         open={isDialogOpen}
         confirmationText="Delete Account"

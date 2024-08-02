@@ -3,6 +3,7 @@ import { Keyboard } from 'react-native';
 import { View, Text } from 'tamagui';
 import { Wand2, Settings2 } from '@tamagui/lucide-icons';
 import { useRouter } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 
 import ThemedScreen from '@/components/screen';
 import ThemedButton from '@/components/button';
@@ -16,6 +17,7 @@ import {
   useGetPuplicRecipesQuery,
 } from '@/store/api/recipes';
 import { setRecipePreferences } from '@/store/preferences/actions';
+import { useRevenueCat } from '@/store/revenuecat/provider';
 
 import Header from '@/components/header';
 
@@ -25,17 +27,39 @@ export default function Generate() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [recipePreferences, setRecipePreferences] =
     useState<any>([]);
+  const [freeRecipes, setFreeRecipes] = useState<any>(0);
 
   const [generateRecipe, { data, error, isLoading }] =
     useGenerateRecipeMutation();
 
   const router = useRouter();
 
+  const { user } = useRevenueCat();
+
   useEffect(() => {
     if (data && !isLoading && !error) {
       router.navigate(`(tabs)/recipes/${data?.data._id}`);
     }
   }, [data, isLoading, error]);
+
+  useEffect(() => {
+    const getFreeRecipes = async () => {
+      const value =
+        await SecureStore.getItemAsync('free_recipes');
+      if (value !== null) {
+        setFreeRecipes(parseInt(value));
+      }
+    };
+    getFreeRecipes();
+  }, []);
+
+  const updateFreeRecipes = async () => {
+    await SecureStore.setItemAsync(
+      'free_recipes',
+      (freeRecipes - 1).toString(),
+    );
+    setFreeRecipes(freeRecipes - 1);
+  };
 
   if (isLoading) {
     return <ThemedSpinner />;
@@ -87,8 +111,15 @@ export default function Generate() {
           onSubmit={(uri) => console.log(uri)}
         /> */}
         <ThemedButton
-          buttonTitle={'Generate Recipe'}
-          disabled={!ingredients}
+          buttonTitle={
+            'Generate Recipe' +
+            (!user.pro
+              ? ` (${freeRecipes} recipes left)`
+              : '')
+          }
+          disabled={
+            !ingredients || (!user.pro && freeRecipes <= 0)
+          }
           icon={<Wand2 size={20} color={'white'} />}
           onPress={() => {
             Keyboard.dismiss();
@@ -96,10 +127,13 @@ export default function Generate() {
               ingredientsText: ingredients,
               preferences: recipePreferences,
             });
+            if (!user.pro) {
+              updateFreeRecipes();
+            }
           }}
         />
       </View>
-      <PremiumCard />
+      {!user.pro ? <PremiumCard /> : <></>}
       <FiltersModal
         isOpen={isOpen}
         setIsOpen={setIsOpen}

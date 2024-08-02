@@ -98,7 +98,7 @@ export const recipeApiSlice = createApi({
         body: ingredients,
       }),
       //@ts-ignore
-      providesTags: ['Recipes'],
+      invalidatesTags: ['Recipes'],
     }),
   }),
 });

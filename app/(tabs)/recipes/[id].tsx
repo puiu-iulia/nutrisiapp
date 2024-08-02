@@ -56,7 +56,7 @@ function details() {
     // @ts-ignore
     if (response.error) {
       // @ts-ignore
-      console.log('error', response.error);
+      //console.log('error', response.error);
     }
   };
   async function handleDelete() {
@@ -80,7 +80,7 @@ function details() {
         recipe={recipe}
         isLoading={isLoading}
         error={error}
-        goBack={() => router.back()}
+        goBack={() => router.navigate('/(tabs)/recipes')}
         onPhotoChange={(uri: string) => {
           handleUploadImage(uri);
         }}
